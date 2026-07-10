@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alexandrehsilveira-sys.github.io/missao-matematica/sitemap.xml
