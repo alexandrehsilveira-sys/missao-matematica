@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Missão Matemática 🚀</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0a0f1e;color:#e2e8f0;min-height:100vh;overflow-x:hidden}
+#stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.star{position:absolute;border-radius:50%;animation:twinkle var(--d,2s) infinite alternate}
+@keyframes twinkle{0%{opacity:.2;transform:scale(1)}100%{opacity:1;transform:scale(1.4)}}
+.screen{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+.hidden{display:none!important}
+#menu-screen{gap:20px;text-align:center}
+.logo{font-size:60px;animation:bounce 1.6s infinite alternate}
+@keyframes bounce{0%{transform:translateY(0)}100%{transform:translateY(-14px)}}
+h1{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#f97316,#06b6d4,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{color:#94a3b8;font-size:.9rem;max-width:380px;line-height:1.5}
+.cat-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.cat-chip{font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid}
+.cc-tab{background:rgba(249,115,22,.15);color:#f97316;border-color:rgba(249,115,22,.3)}
+.cc-vis{background:rgba(6,182,212,.15);color:#06b6d4;border-color:rgba(6,182,212,.3)}
+.cc-seq{background:rgba(168,85,247,.15);color:#a855f7;border-color:rgba(168,85,247,.3)}
+.cc-fra{background:rgba(34,197,94,.15);color:#22c55e;border-color:rgba(34,197,94,.3)}
+.cc-geo{background:rgba(239,68,68,.15);color:#ef4444;border-color:rgba(239,68,68,.3)}
+.cc-ops{background:rgba(234,179,8,.15);color:#eab308;border-color:rgba(234,179,8,.3)}
+.mode-cards{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.mode-card{background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.12);border-radius:18px;padding:18px 22px;cursor:pointer;transition:.25s;min-width:120px;text-align:center}
+.mode-card:hover,.mode-card.selected{transform:translateY(-4px);border-color:#06b6d4;background:rgba(6,182,212,.12)}
+.mc-icon{font-size:30px;margin-bottom:6px}
+.mc-label{font-weight:700;font-size:.88rem}
+.mc-desc{font-size:.72rem;color:#64748b;margin-top:2px}
+.btn-primary{background:linear-gradient(135deg,#f97316,#ef4444);border:none;color:#fff;font-size:1.05rem;font-weight:700;padding:13px 38px;border-radius:50px;cursor:pointer;transition:.2s;box-shadow:0 0 24px rgba(249,115,22,.4)}
+.btn-primary:hover{transform:scale(1.05);box-shadow:0 0 36px rgba(249,115,22,.6)}
+#game-screen{gap:0;justify-content:flex-start;padding:8px 12px;padding-top:14px}
+.game-header{display:flex;align-items:center;gap:10px;padding:9px 14px;background:rgba(255,255,255,.06);border-radius:14px;margin-bottom:10px;width:100%;max-width:640px;flex-wrap:wrap}
+.avatar-mood{font-size:26px}
+.game-stat{display:flex;align-items:center;gap:4px;font-weight:700;font-size:.9rem}
+.progress-dots{display:flex;gap:5px;margin-left:auto;flex-wrap:wrap;max-width:200px;justify-content:flex-end}
+.pdot{width:9px;height:9px;border-radius:50%;background:#1e293b;transition:.3s}
+.pdot.correct{background:#22c55e}
+.pdot.wrong{background:#ef4444}
+.pdot.current{background:#06b6d4;box-shadow:0 0 8px #06b6d4}
+.question-card{background:rgba(255,255,255,.055);border:2px solid rgba(255,255,255,.09);border-radius:20px;padding:16px;width:100%;max-width:640px;margin-bottom:10px}
+.q-type-badge{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.badge-tabuada{background:rgba(249,115,22,.2);color:#f97316;border:1px solid rgba(249,115,22,.3)}
+.badge-vistas{background:rgba(6,182,212,.2);color:#06b6d4;border:1px solid rgba(6,182,212,.3)}
+.badge-sequencia{background:rgba(168,85,247,.2);color:#a855f7;border:1px solid rgba(168,85,247,.3)}
+.badge-fracao{background:rgba(34,197,94,.2);color:#22c55e;border:1px solid rgba(34,197,94,.3)}
+.badge-geometria{background:rgba(239,68,68,.2);color:#ef4444;border:1px solid rgba(239,68,68,.3)}
+.badge-operacao{background:rgba(234,179,8,.2);color:#eab308;border:1px solid rgba(234,179,8,.3)}
+.q-text{font-size:1rem;font-weight:600;line-height:1.5;margin-bottom:10px}
+.btn-speak{background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.3);color:#a855f7;padding:5px 12px;border-radius:20px;cursor:pointer;font-size:.78rem;margin-bottom:10px;display:inline-block}
+.q-visual{display:flex;justify-content:center;align-items:center;margin-bottom:12px;min-height:40px}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:100%;max-width:640px}
+.opt-btn{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.12);border-radius:14px;color:#e2e8f0;font-size:.93rem;font-weight:600;padding:11px 10px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:8px;text-align:left}
+.opt-btn:hover:not(:disabled){transform:translateY(-2px);border-color:#06b6d4;background:rgba(6,182,212,.1)}
+.opt-btn.correct-ans{border-color:#22c55e!important;background:rgba(34,197,94,.18)!important;color:#86efac}
+.opt-btn.wrong-ans{border-color:#ef4444!important;background:rgba(239,68,68,.12)!important;color:#fca5a5}
+.opt-btn:disabled{cursor:not-allowed}
+.opt-letter{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.1);font-size:.78rem;flex-shrink:0}
+.opt-svg-wrap{display:flex;justify-content:center;width:100%}
+.feedback-box{background:rgba(255,255,255,.055);border:2px solid rgba(255,255,255,.1);border-radius:16px;padding:13px 16px;width:100%;max-width:640px;margin-top:8px;animation:slideDown .3s ease}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.feedback-box.correct{border-color:rgba(34,197,94,.5)}
+.feedback-box.wrong{border-color:rgba(239,68,68,.4)}
+.feedback-title{font-weight:700;font-size:.95rem;margin-bottom:4px}
+.feedback-text{font-size:.83rem;color:#94a3b8;line-height:1.55}
+.btn-next{display:inline-block;margin-top:10px;background:linear-gradient(135deg,#06b6d4,#6366f1);border:none;color:#fff;font-weight:700;padding:9px 28px;border-radius:50px;cursor:pointer;font-size:.9rem;transition:.2s}
+.btn-next:hover{transform:scale(1.04)}
+#results-screen{gap:18px;text-align:center}
+.results-title{font-size:1.7rem;font-weight:900}
+.results-gems{font-size:2.6rem;font-weight:900;background:linear-gradient(135deg,#f97316,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:400px}
+.result-stat{background:rgba(255,255,255,.07);border-radius:14px;padding:12px}
+.rs-val{font-size:1.5rem;font-weight:900}
+.rs-label{font-size:.72rem;color:#64748b;margin-top:2px}
+.cat-breakdown{width:100%;max-width:480px;background:rgba(255,255,255,.05);border-radius:14px;padding:14px;text-align:left}
+.cat-breakdown h3{color:#94a3b8;font-size:.8rem;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.cat-row{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.cat-bar-wrap{flex:1;height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}
+.cat-bar{height:100%;border-radius:4px;transition:.6s}
+.cat-pct{font-size:.78rem;font-weight:700;width:36px;text-align:right}
+.learnings{width:100%;max-width:480px;background:rgba(255,255,255,.05);border-radius:14px;padding:14px;text-align:left}
+.learnings h3{color:#f97316;margin-bottom:8px;font-size:.85rem}
+.learning-item{font-size:.8rem;color:#94a3b8;margin:4px 0;padding-left:18px;position:relative;line-height:1.4}
+.learning-item::before{content:'💡';position:absolute;left:0;font-size:.7rem}
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999}
+.particle{position:absolute;font-size:1.4rem;animation:flyUp 1.2s forwards;pointer-events:none}
+@keyframes flyUp{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx,0),var(--dy,-160px)) scale(.3)}}
+#toast{position:fixed;top:18px;left:50%;transform:translateX(-50%) translateY(-80px);background:linear-gradient(135deg,#f97316,#ef4444);color:#fff;padding:9px 20px;border-radius:50px;font-weight:700;font-size:.87rem;z-index:998;transition:.4s;opacity:0;white-space:nowrap}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div id="particles"></div>
+<div id="toast"></div>
+<div class="screen" id="menu-screen">
+  <div class="logo">🚀</div>
+  <h1>Missão Matemática</h1>
+  <p class="subtitle">Seis tipos de desafios matemáticos inspirados nas competições Canguru!</p>
+  <div class="cat-chips">
+    <span class="cat-chip cc-tab">✖ Tabuada</span>
+    <span class="cat-chip cc-vis">👁 Vistas 3D</span>
+    <span class="cat-chip cc-seq">🔢 Sequências</span>
+    <span class="cat-chip cc-fra">🍕 Frações</span>
+    <span class="cat-chip cc-geo">📐 Geometria</span>
+    <span class="cat-chip cc-ops">🔍 Operação ?</span>
+  </div>
+  <div class="mode-cards">
+    <div class="mode-card" onclick="selectMode(8)" id="card-8"><div class="mc-icon">⚡</div><div class="mc-label">Turbo</div><div class="mc-desc">8 questões</div></div>
+    <div class="mode-card selected" onclick="selectMode(15)" id="card-15"><div class="mc-icon">🌙</div><div class="mc-label">Normal</div><div class="mc-desc">15 questões</div></div>
+    <div class="mode-card" onclick="selectMode(24)" id="card-24"><div class="mc-icon">🌟</div><div class="mc-label">Completo</div><div class="mc-desc">24 questões</div></div>
+  </div>
+  <button class="btn-primary" onclick="startGame()">Iniciar Missão 🚀</button>
+</div>
+<div class="screen hidden" id="game-screen">
+  <div class="game-header">
+    <span class="avatar-mood" id="avatar-mood">🚀</span>
+    <div class="game-stat"><span>💎</span><span id="gems-display">0</span></div>
+    <div class="game-stat"><span>🔥</span><span id="streak-display">0</span></div>
+    <div class="game-stat"><span>❤️</span><span id="lives-display">5</span></div>
+    <div class="progress-dots" id="progress-dots"></div>
+  </div>
+  <div class="question-card">
+    <span class="q-type-badge" id="q-badge">—</span>
+    <div class="q-text" id="q-text"></div>
+    <button class="btn-speak" onclick="speakQuestion()">🔊 Ouvir</button>
+    <div class="q-visual" id="q-visual"></div>
+  </div>
+  <div class="options-grid" id="q-options"></div>
+  <div id="feedback-area"></div>
+</div>
+<div class="screen hidden" id="results-screen">
+  <div style="font-size:52px">🏆</div>
+  <div class="results-title">Missão Concluída!</div>
+  <div class="results-gems" id="res-gems">0 💎</div>
+  <div class="results-grid">
+    <div class="result-stat"><div class="rs-val" id="res-correct">0</div><div class="rs-label">Acertos</div></div>
+    <div class="result-stat"><div class="rs-val" id="res-wrong">0</div><div class="rs-label">Erros</div></div>
+    <div class="result-stat"><div class="rs-val" id="res-streak">0</div><div class="rs-label">Maior Sequência</div></div>
+    <div class="result-stat"><div class="rs-val" id="res-rank">⭐</div><div class="rs-label">Patente</div></div>
+  </div>
+  <div class="cat-breakdown" id="cat-breakdown"></div>
+  <div class="learnings hidden" id="learnings-box"><h3>💡 Para revisar:</h3><div id="learnings-list"></div></div>
+  <button class="btn-primary" onclick="goMenu()">Nova Missão 🚀</button>
+</div>
+<script>
+(function(){const c=document.getElementById('stars');for(let i=0;i<130;i++){const s=document.createElement('div'),sz=Math.random()*3+1;s.className='star';s.style.cssText='width:'+sz+'px;height:'+sz+'px;background:#fff;top:'+(Math.random()*100)+'%;left:'+(Math.random()*100)+'%;--d:'+(1+Math.random()*3).toFixed(1)+'s;animation-delay:'+(Math.random()*4).toFixed(1)+'s;opacity:.15';c.appendChild(s);}})();
+function svg(w,h,content){return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg">'+content+'</svg>';}
+function drawIso(grid,w,h){w=w||220;h=h||170;const UW=18,UH=11,UV=20,hs=grid.length,rows=grid[0].length,cols=grid[0][0].length,ox=w/2,oy=h*0.68;let cubes=[];for(let lh=0;lh<hs;lh++)for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)if(grid[lh][r][c])cubes.push({r,c,h:lh});cubes.sort((a,b)=>(a.c+a.r-b.c-b.r)||a.h-b.h);let p='';for(const {r,c,h} of cubes){const bx=ox+(c-r)*UW,by=oy+(c+r)*UH-h*UV;const tp=[[bx,by-UV],[bx+UW,by-UV+UH],[bx,by-UV+UH*2],[bx-UW,by-UV+UH]];p+='<polygon points="'+tp.map(v=>v.join(',')).join(' ')+'" fill="#6366f1" stroke="#0a0f1e" stroke-width="1.2"/>';const lp=[[bx-UW,by-UV+UH],[bx,by-UV+UH*2],[bx,by+UH*2],[bx-UW,by+UH]];p+='<polygon points="'+lp.map(v=>v.join(',')).join(' ')+'" fill="#3730a3" stroke="#0a0f1e" stroke-width="1.2"/>';const rp=[[bx,by-UV+UH*2],[bx+UW,by-UV+UH],[bx+UW,by+UH],[bx,by+UH*2]];p+='<polygon points="'+rp.map(v=>v.join(',')).join(' ')+'" fill="#818cf8" stroke="#0a0f1e" stroke-width="1.2"/>';}return svg(w,h,p);}
+function drawOrtho(matrix,label,w,h,color){w=w||88;h=h||82;color=color||'#06b6d4';if(!matrix||!matrix.length)return svg(w,h,'');const rows=matrix.length,cols=matrix[0].length,cell=Math.min((w-10)/cols,(h-20)/rows),ox=(w-cols*cell)/2,oy=18;let out='<text x="'+(w/2)+'" y="13" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="9" font-family="sans-serif">'+label+'</text>';for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){const x=ox+c*cell,y=oy+r*cell;out+='<rect x="'+(x+1)+'" y="'+(y+1)+'" width="'+(cell-2)+'" height="'+(cell-2)+'" fill="'+(matrix[r][c]?color:'rgba(255,255,255,.04)')+'" stroke="'+(matrix[r][c]?color:'rgba(255,255,255,.1)')+'" stroke-width="1" rx="2"/>';}return svg(w,h,out);}
+function drawDots(a,b,w,h){w=w||170;h=h||115;const cw=Math.min((w-20)/b,22),ch=Math.min((h-14)/a,22),ox=(w-b*cw)/2,oy=(h-a*ch)/2;let d='';for(let r=0;r<a;r++)for(let c=0;c<b;c++){const cx=ox+c*cw+cw/2,cy=oy+r*ch+ch/2;d+='<circle cx="'+cx+'" cy="'+cy+'" r="'+(Math.min(cw,ch)*.38)+'" fill="#f97316" opacity=".88"/>';}return svg(w,h,d);}
+function drawPie(num,den,w,h){w=w||130;h=h||130;if(den<=0)return svg(w,h,'');const cx=w/2,cy=h/2,R=Math.min(w,h)/2-8,sa=2*Math.PI/den;let parts='';for(let i=0;i<den;i++){const a0=i*sa-Math.PI/2,a1=a0+sa-0.04,x0=cx+R*Math.cos(a0),y0=cy+R*Math.sin(a0),x1=cx+R*Math.cos(a1),y1=cy+R*Math.sin(a1),fill=i<num?'#22c55e':'rgba(255,255,255,.08)',stroke=i<num?'#0a0f1e':'rgba(255,255,255,.12)';parts+='<path d="M'+cx+','+cy+' L'+x0+','+y0+' A'+R+','+R+' 0 0,1 '+x1+','+y1+' Z" fill="'+fill+'" stroke="'+stroke+'" stroke-width="1.5"/>';}parts+='<text x="'+cx+'" y="'+(cy+5)+'" text-anchor="middle" fill="#e2e8f0" font-size="17" font-weight="700" font-family="sans-serif">'+num+'/'+den+'</text>';return svg(w,h,parts);}
+function drawGridFrac(shaded,total,cols,w,h){w=w||130;h=h||100;const rows=Math.ceil(total/cols),cw=(w-12)/cols,ch=(h-12)/rows;let out='';for(let i=0;i<total;i++){const r=Math.floor(i/cols),c=i%cols,x=6+c*cw,y=6+r*ch;out+='<rect x="'+(x+1)+'" y="'+(y+1)+'" width="'+(cw-2)+'" height="'+(ch-2)+'" fill="'+(i<shaded?'#22c55e':'rgba(255,255,255,.07)')+'" stroke="rgba(255,255,255,.15)" stroke-width="1" rx="3"/>';}return svg(w,h,out);}
+function drawGridShape(cells,w,h,cellSize,color){w=w||150;h=h||130;cellSize=cellSize||22;color=color||'#ef4444';let out='';const maxR=Math.max(...cells.map(c=>c[0]))+2,maxC=Math.max(...cells.map(c=>c[1]))+2,ox=(w-maxC*cellSize)/2,oy=(h-maxR*cellSize)/2;for(let r=0;r<maxR+1;r++)for(let c=0;c<maxC+1;c++)out+='<circle cx="'+(ox+c*cellSize)+'" cy="'+(oy+r*cellSize)+'" r="1.5" fill="rgba(255,255,255,.15)"/>';for(const [r,c] of cells)out+='<rect x="'+(ox+c*cellSize+1)+'" y="'+(oy+r*cellSize+1)+'" width="'+(cellSize-2)+'" height="'+(cellSize-2)+'" fill="'+color+'" opacity=".75" rx="2"/>';return svg(w,h,out);}
+function drawSequence(nums,w,h){w=w||260;h=h||60;const n=nums.length,bw=Math.min(46,(w-20)/n),ox=(w-n*bw)/2,oy=10;let out='';for(let i=0;i<n;i++){const x=ox+i*bw+bw/2,isQ=nums[i]==='?';out+='<rect x="'+(ox+i*bw+3)+'" y="'+oy+'" width="'+(bw-6)+'" height="'+(h-20)+'" fill="'+(isQ?'rgba(168,85,247,.3)':'rgba(255,255,255,.08)')+'" stroke="'+(isQ?'#a855f7':'rgba(255,255,255,.18)')+'" stroke-width="1.5" rx="8"/>';out+='<text x="'+x+'" y="'+(oy+(h-20)/2+6)+'" text-anchor="middle" fill="'+(isQ?'#a855f7':'#e2e8f0')+'" font-size="'+(isQ?'20':'18')+'" font-weight="700" font-family="sans-serif">'+nums[i]+'</text>';}return svg(w,h,out);}
+function drawMissingOp(parts,w,h){w=w||240;h=h||60;const n=parts.length,bw=w/n,oy=8;let out='';for(let i=0;i<n;i++){const x=i*bw+bw/2,isQ=parts[i]==='?',isOp=['×','÷','+','−','='].includes(parts[i]);if(isQ)out+='<rect x="'+(x-18)+'" y="'+oy+'" width="36" height="'+(h-16)+'" fill="rgba(234,179,8,.2)" stroke="#eab308" stroke-width="1.5" rx="8"/>';out+='<text x="'+x+'" y="'+(oy+(h-16)/2+7)+'" text-anchor="middle" fill="'+(isQ?'#eab308':isOp?'#94a3b8':'#e2e8f0')+'" font-size="22" font-weight="'+(isOp?'400':'700')+'" font-family="sans-serif">'+parts[i]+'</text>';}return svg(w,h,out);}
+const structs={escada:{name:'Escada',grid:[[[1,1,1],[0,1,1],[0,0,1]],[[0,0,0],[0,1,0],[0,0,1]],[[0,0,0],[0,0,0],[0,0,1]]]},blocoL:{name:'Bloco L',grid:[[[1,0,0],[1,0,0],[1,1,1]],[[1,0,0],[0,0,0],[0,0,0]]]},torre:{name:'Torre',grid:[[[0,1,0],[0,0,0],[0,0,0]],[[0,1,0],[0,0,0],[0,0,0]],[[0,1,0],[0,0,0],[0,0,0]]]},cruz:{name:'Cruz',grid:[[[0,1,0],[1,1,1],[0,1,0]]]},degrau:{name:'Degrau',grid:[[[1,1],[1,1]],[[1,0],[0,0]]]},piramide:{name:'Pirâmide',grid:[[[1,1,1],[1,1,1],[1,1,1]],[[0,1,0],[1,1,1],[0,1,0]],[[0,0,0],[0,1,0],[0,0,0]]]},tnel:{name:'Túnel',grid:[[[1,0,1],[1,0,1],[1,1,1]]]},zigue:{name:'Zigue-zague',grid:[[[1,1,0],[0,1,1],[0,0,1]]]}};
+function getTopView(g){const rs=g[0].length,cs=g[0][0].length,v=[];for(let r=0;r<rs;r++){v.push([]);for(let c=0;c<cs;c++){let f=false;for(let h=0;h<g.length;h++)if(g[h][r][c])f=true;v[r].push(f?1:0)}}return v;}
+function getFrontView(g){const rs=g[0].length,cs=g[0][0].length,hs=g.length,v=[];for(let h=hs-1;h>=0;h--){v.push([]);for(let c=0;c<cs;c++){let f=false;for(let r=0;r<rs;r++)if(g[h][r][c])f=true;v[v.length-1].push(f?1:0)}}return v;}
+function getSideView(g){const rs=g[0].length,cs=g[0][0].length,hs=g.length,v=[];for(let h=hs-1;h>=0;h--){v.push([]);for(let r=0;r<rs;r++){let f=false;for(let c=0;c<cs;c++)if(g[h][r][c])f=true;v[v.length-1].push(f?1:0)}}return v;}
+function countCubes(g){let n=0;for(const l of g)for(const r of l)for(const c of r)if(c)n++;return n;}
+function rotateTop90(g){const top=getTopView(g),rows=top.length,cols=top[0].length,rot=[];for(let c=0;c<cols;c++){rot.push([]);for(let r=rows-1;r>=0;r--)rot[c].push(top[r][c]);}return rot;}
+function shuffleArr(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function shuffleWithAns(opts,ansVal){const sh=shuffleArr(opts),idx=sh.findIndex(o=>JSON.stringify(o)===JSON.stringify(ansVal));return{opts:sh,ansIdx:idx};}
+const qTabuada=[
+{type:'tabuada',text:'Quanto é 2 × 3?',visual:()=>drawDots(2,3),answer:6,opts:[4,5,6,7],exp:'2 grupos de 3 = 6'},
+{type:'tabuada',text:'Quanto é 3 × 4?',visual:()=>drawDots(3,4),answer:12,opts:[10,11,12,14],exp:'3 grupos de 4 = 12'},
+{type:'tabuada',text:'Quanto é 4 × 5?',visual:()=>drawDots(4,5),answer:20,opts:[16,18,20,24],exp:'4 × 5 = 20'},
+{type:'tabuada',text:'Quanto é 5 × 6?',visual:()=>drawDots(5,6),answer:30,opts:[25,28,30,35],exp:'5 × 6 = 30. Tabuada do 5 termina em 0 ou 5!'},
+{type:'tabuada',text:'Quanto é 6 × 7?',visual:()=>drawDots(6,7),answer:42,opts:[40,42,45,48],exp:'6 × 7 = 42. Truque: 6×6+6=36+6=42'},
+{type:'tabuada',text:'Quanto é 7 × 8?',visual:()=>drawDots(7,8),answer:56,opts:[48,54,56,63],exp:'7 × 8 = 56. Dica: 5-6-7-8 → 56=7×8'},
+{type:'tabuada',text:'Quanto é 8 × 9?',visual:()=>drawDots(8,9),answer:72,opts:[64,70,72,81],exp:'8 × 9 = 72'},
+{type:'tabuada',text:'Quanto é 9 × 9?',visual:()=>drawDots(9,9),answer:81,opts:[72,79,81,90],exp:'9 × 9 = 81. Quadrado perfeito!'},
+{type:'tabuada',text:'Quanto é 3 × 7?',visual:()=>drawDots(3,7),answer:21,opts:[18,20,21,24],exp:'3 × 7 = 21'},
+{type:'tabuada',text:'Quanto é 4 × 8?',visual:()=>drawDots(4,8),answer:32,opts:[28,30,32,36],exp:'4 × 8 = 32'},
+{type:'tabuada',text:'Quanto é 6 × 6?',visual:()=>drawDots(6,6),answer:36,opts:[30,33,36,42],exp:'6 × 6 = 36. Quadrado perfeito!'},
+{type:'tabuada',text:'Quanto é 7 × 7?',visual:()=>drawDots(7,7),answer:49,opts:[42,46,49,56],exp:'7 × 7 = 49. Quadrado perfeito!'},
+{type:'tabuada',text:'Quanto é 5 × 9?',visual:()=>drawDots(5,9),answer:45,opts:[40,43,45,50],exp:'5 × 9 = 45'},
+{type:'tabuada',text:'Quanto é 3 × 8?',visual:()=>drawDots(3,8),answer:24,opts:[18,21,24,27],exp:'3 × 8 = 24'},
+{type:'tabuada',text:'Quanto é 4 × 9?',visual:()=>drawDots(4,9),answer:36,opts:[27,32,36,40],exp:'4 × 9 = 36'},
+];
+function makeVistaQuestions(){const qs=[],slist=Object.entries(structs);
+for(const[key,s]of slist){const correct=getTopView(s.grid),wrongs=slist.filter(([k])=>k!==key).map(([,o])=>getTopView(o.grid)).filter(v=>JSON.stringify(v)!==JSON.stringify(correct)),opts=[correct,...wrongs.slice(0,3)],{opts:sh,ansIdx}=shuffleWithAns(opts,correct);qs.push({type:'vistas',text:'Qual é a VISTA SUPERIOR (olhando de cima) desta figura?',visual:()=>drawIso(s.grid,220,165),answerIdx:ansIdx,opts:sh,renderOpt:(v)=>drawOrtho(v,'↑ cima',86,78,'#06b6d4'),exp:'A vista superior mostra o mapa do chão da figura olhando de cima.'});}
+for(const[key,s]of slist.slice(0,5)){const correct=getFrontView(s.grid),wrongs=slist.filter(([k])=>k!==key).map(([,o])=>getFrontView(o.grid)).filter(v=>JSON.stringify(v)!==JSON.stringify(correct)),opts=[correct,...wrongs.slice(0,3)],{opts:sh,ansIdx}=shuffleWithAns(opts,correct);qs.push({type:'vistas',text:'Qual é a VISTA FRONTAL (olhando da frente) desta figura?',visual:()=>drawIso(s.grid,220,165),answerIdx:ansIdx,opts:sh,renderOpt:(v)=>drawOrtho(v,'→ frente',86,78,'#f97316'),exp:'A vista frontal é a silhueta da figura vista de frente.'});}
+for(const[key,s]of slist.slice(0,5)){const correct=getSideView(s.grid),wrongs=slist.filter(([k])=>k!==key).map(([,o])=>getSideView(o.grid)).filter(v=>JSON.stringify(v)!==JSON.stringify(correct)),opts=[correct,...wrongs.slice(0,3)],{opts:sh,ansIdx}=shuffleWithAns(opts,correct);qs.push({type:'vistas',text:'Qual é a VISTA LATERAL (olhando do lado) desta figura?',visual:()=>drawIso(s.grid,220,165),answerIdx:ansIdx,opts:sh,renderOpt:(v)=>drawOrtho(v,'◁ lado',86,78,'#a855f7'),exp:'A vista lateral é a silhueta da figura vista de lado.'});}
+for(const key of['escada','blocoL','piramide','tnel','zigue']){const s=structs[key],correct=countCubes(s.grid),wrongs=[correct-2,correct-1,correct+1,correct+2].filter(n=>n>0&&n!==correct),opts=shuffleArr([correct,...wrongs.slice(0,3)]),ansIdx=opts.indexOf(correct);qs.push({type:'vistas',text:'Quantos cubinhos existem nesta figura?',visual:()=>drawIso(s.grid,220,165),answerIdx:ansIdx,opts,renderOpt:null,exp:'Esta figura tem '+correct+' cubinhos. Conte camada por camada!'});}
+for(const[key,s]of slist.slice(0,4)){const targetTop=getTopView(s.grid),wrongStructs=slist.filter(([k])=>k!==key&&JSON.stringify(getTopView(structs[k].grid))!==JSON.stringify(targetTop)),w3=shuffleArr(wrongStructs).slice(0,3).map(([,o])=>o),allStructs=shuffleArr([s,...w3]),ansIdx=allStructs.indexOf(s);qs.push({type:'vistas',text:'Qual das figuras abaixo gera esta vista de cima?',visual:()=>drawOrtho(targetTop,'vista de cima ↑',110,96,'#06b6d4'),answerIdx:ansIdx,opts:allStructs,renderOpt:(st)=>drawIso(st.grid,100,80),exp:'A vista superior mostra o mapa de chão da figura.'});}
+for(const[key,s]of slist.slice(0,3)){const rotated=rotateTop90(s.grid),wrongs=slist.filter(([k])=>k!==key).map(([,o])=>getTopView(o.grid)).filter(v=>JSON.stringify(v)!==JSON.stringify(rotated)),opts=[rotated,...wrongs.slice(0,3)],{opts:sh,ansIdx}=shuffleWithAns(opts,rotated);qs.push({type:'vistas',text:'Esta figura foi girada 90° para a direita. Qual é a nova vista de cima?',visual:()=>drawIso(s.grid,220,165),answerIdx:ansIdx,opts:sh,renderOpt:(v)=>drawOrtho(v,'nova ↑',86,78,'#06b6d4'),exp:'Ao girar 90° para a direita, colunas viram linhas e vice-versa.'});}
+return qs;}
+const qSequencias=[
+{type:'sequencia',text:'Qual número completa a sequência?',visual:()=>drawSequence([2,4,6,8,'?']),answer:10,opts:[9,10,11,12],exp:'Soma +2 a cada passo: 2,4,6,8,10.'},
+{type:'sequencia',text:'Qual número completa a sequência?',visual:()=>drawSequence([1,4,9,16,'?']),answer:25,opts:[20,23,25,36],exp:'Quadrados perfeitos: 1²,2²,3²,4²,5²=25'},
+{type:'sequencia',text:'Qual número completa a sequência?',visual:()=>drawSequence([3,6,12,24,'?']),answer:48,opts:[36,42,48,56],exp:'Cada número dobra: ×2. 24×2=48'},
+{type:'sequencia',text:'Qual número completa a sequência?',visual:()=>drawSequence([1,2,3,5,8,'?']),answer:13,opts:[10,12,13,16],exp:'Fibonacci: soma dos dois anteriores. 5+8=13'},
+{type:'sequencia',text:'Qual número completa a sequência?',visual:()=>drawSequence([100,90,81,73,'?']),answer:66,opts:[64,65,66,68],exp:'Diferenças: −10,−9,−8,−7. 73−7=66'},
+{type:'sequencia',text:'Qual número completa a sequência?',visual:()=>drawSequence([2,3,5,7,11,'?']),answer:13,opts:[12,13,14,15],exp:'Números primos: 2,3,5,7,11,13...'},
+{type:'sequencia',text:'Qual número completa a sequência?',visual:()=>drawSequence([1,3,7,15,'?']),answer:31,opts:[25,29,31,35],exp:'Cada número = anterior×2+1. 15×2+1=31'},
+{type:'sequencia',text:'Qual número completa a sequência?',visual:()=>drawSequence([81,27,9,3,'?']),answer:1,opts:[0,1,2,3],exp:'Divide por 3: 81÷3=27÷3=9÷3=3÷3=1'},
+{type:'sequencia',text:'Qual número completa a sequência?',visual:()=>drawSequence([1,8,27,64,'?']),answer:125,opts:[100,121,125,216],exp:'Cubos: 1³,2³,3³,4³,5³=125'},
+];
+const qFracoes=[
+{type:'fracao',text:'Qual fração da pizza está pintada de verde?',visual:()=>drawPie(2,4),answer:'1/2',opts:['1/4','1/2','2/3','3/4'],exp:'2 de 4 partes = 1/2'},
+{type:'fracao',text:'Qual fração está pintada de verde?',visual:()=>drawGridFrac(3,9,3),answer:'1/3',opts:['1/4','1/3','2/3','3/4'],exp:'3 de 9 = 1/3'},
+{type:'fracao',text:'Qual fração da pizza está pintada de verde?',visual:()=>drawPie(3,8),answer:'3/8',opts:['1/4','3/8','1/2','5/8'],exp:'3 de 8 partes = 3/8'},
+{type:'fracao',text:'Qual fração está pintada de verde?',visual:()=>drawGridFrac(6,12,4),answer:'1/2',opts:['1/3','1/2','2/3','3/4'],exp:'6 de 12 = 1/2'},
+{type:'fracao',text:'Qual fração da pizza está pintada de verde?',visual:()=>drawPie(1,4),answer:'1/4',opts:['1/8','1/4','1/3','1/2'],exp:'1 de 4 partes = 1/4'},
+{type:'fracao',text:'Qual fração da pizza está pintada de verde?',visual:()=>drawPie(5,6),answer:'5/6',opts:['2/3','3/4','5/6','1'],exp:'5 de 6 partes = 5/6'},
+{type:'fracao',text:'Qual fração está pintada de verde?',visual:()=>drawGridFrac(2,10,5),answer:'1/5',opts:['1/10','1/5','2/5','1/2'],exp:'2 de 10 = 1/5'},
+];
+const qGeometria=[
+{type:'geometria',text:'Quantos quadradinhos têm esta figura L?',visual:()=>drawGridShape([[0,0],[1,0],[2,0],[2,1],[2,2]]),answer:5,opts:[4,5,6,7],exp:'3 na coluna + 2 na linha = 5'},
+{type:'geometria',text:'Qual é a ÁREA desta figura em quadradinhos?',visual:()=>drawGridShape([[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]]),answer:9,opts:[8,9,10,12],exp:'Figura 3×3 = 9 quadradinhos'},
+{type:'geometria',text:'Quantos quadradinhos têm esta figura T?',visual:()=>drawGridShape([[0,0],[0,1],[0,2],[1,1],[2,1]]),answer:5,opts:[4,5,6,7],exp:'3 no topo + 2 no meio = 5'},
+{type:'geometria',text:'Qual é a ÁREA da figura em quadradinhos?',visual:()=>drawGridShape([[0,0],[0,1],[1,0],[1,1],[2,0],[2,1],[3,0],[3,1]]),answer:8,opts:[6,7,8,10],exp:'Retângulo 4×2 = 8 quadradinhos'},
+{type:'geometria',text:'Quantos quadradinhos têm esta figura em Z?',visual:()=>drawGridShape([[0,0],[0,1],[1,1],[2,1],[2,2]]),answer:5,opts:[4,5,6,7],exp:'2+1+2 = 5 quadradinhos'},
+{type:'geometria',text:'Qual é o PERÍMETRO do retângulo?',visual:()=>drawGridShape([[0,0],[0,1],[0,2],[0,3],[1,0],[1,1],[1,2],[1,3],[2,0],[2,1],[2,2],[2,3]]),answer:'14',opts:['12','14','16','18'],exp:'Retângulo 3×4: perímetro = 2×(3+4) = 14'},
+];
+const qOperacao=[
+{type:'operacao',text:'Qual número substitui o ?',visual:()=>drawMissingOp(['?','×','6','=','42']),answer:7,opts:[6,7,8,9],exp:'42 ÷ 6 = 7'},
+{type:'operacao',text:'Qual número substitui o ?',visual:()=>drawMissingOp(['8','×','?','=','56']),answer:7,opts:[6,7,8,9],exp:'56 ÷ 8 = 7'},
+{type:'operacao',text:'Qual número substitui o ?',visual:()=>drawMissingOp(['?','÷','4','=','9']),answer:36,opts:[27,32,36,40],exp:'9 × 4 = 36'},
+{type:'operacao',text:'Qual número substitui o ?',visual:()=>drawMissingOp(['5','×','?','=','45']),answer:9,opts:[7,8,9,10],exp:'45 ÷ 5 = 9'},
+{type:'operacao',text:'Qual número substitui o ?',visual:()=>drawMissingOp(['?','+','17','=','30']),answer:13,opts:[11,12,13,14],exp:'30 − 17 = 13'},
+{type:'operacao',text:'Qual número substitui o ?',visual:()=>drawMissingOp(['64','÷','?','=','8']),answer:8,opts:[6,7,8,9],exp:'64 ÷ 8 = 8'},
+{type:'operacao',text:'Qual número substitui o ?',visual:()=>drawMissingOp(['3','×','?','=','24']),answer:8,opts:[6,7,8,9],exp:'24 ÷ 3 = 8'},
+{type:'operacao',text:'Qual número substitui o ?',visual:()=>drawMissingOp(['?','−','15','=','27']),answer:42,opts:[38,40,42,48],exp:'27 + 15 = 42'},
+];
+let selectedMode=15,gameQuestions=[],currentIdx=0,gems=0,lives=5,streak=0,maxStreak=0,correctCount=0,wrongCount=0,answered=false,wrongList=[],currentQ=null,catStats={};
+function selectMode(n){selectedMode=n;document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('selected'));document.getElementById('card-'+n).classList.add('selected');}
+function goMenu(){document.getElementById('results-screen').classList.add('hidden');document.getElementById('menu-screen').classList.remove('hidden');}
+function startGame(){
+const vistaPool=shuffleArr(makeVistaQuestions());
+const tabPool=shuffleArr(qTabuada.map(q=>{const sh=shuffleArr(q.opts);return{...q,builtOpts:sh,answerIdx:sh.indexOf(q.answer),renderOpt:null};}));
+const seqPool=shuffleArr(qSequencias.map(q=>{const sh=shuffleArr(q.opts);return{...q,builtOpts:sh,answerIdx:sh.indexOf(q.answer),renderOpt:null};}));
+const fraPool=shuffleArr(qFracoes.map(q=>{const sh=shuffleArr(q.opts);return{...q,builtOpts:sh,answerIdx:sh.indexOf(q.answer),renderOpt:null};}));
+const geoPool=shuffleArr(qGeometria.map(q=>{const sh=shuffleArr(q.opts);return{...q,builtOpts:sh,answerIdx:sh.map(String).indexOf(String(q.answer)),renderOpt:null};}));
+const opsPool=shuffleArr(qOperacao.map(q=>{const sh=shuffleArr(q.opts);return{...q,builtOpts:sh,answerIdx:sh.indexOf(q.answer),renderOpt:null};}));
+const n=selectedMode,shares={tabuada:.25,vistas:.28,sequencia:.15,fracao:.12,geometria:.1,operacao:.1},counts={};let sum=0;
+for(const[k,v]of Object.entries(shares)){counts[k]=Math.max(1,Math.round(n*v));sum+=counts[k];}
+while(sum<n){counts.vistas++;sum++;}while(sum>n){const k=Object.keys(counts).find(k=>counts[k]>1);if(k)counts[k]--;sum--;}
+const pool=[...tabPool.slice(0,counts.tabuada),...vistaPool.slice(0,counts.vistas),...seqPool.slice(0,counts.sequencia),...fraPool.slice(0,counts.fracao),...geoPool.slice(0,counts.geometria),...opsPool.slice(0,counts.operacao)];
+gameQuestions=shuffleArr(pool);currentIdx=0;gems=0;lives=5;streak=0;maxStreak=0;correctCount=0;wrongCount=0;wrongList=[];
+catStats={tabuada:{c:0,t:0},vistas:{c:0,t:0},sequencia:{c:0,t:0},fracao:{c:0,t:0},geometria:{c:0,t:0},operacao:{c:0,t:0}};
+document.getElementById('menu-screen').classList.add('hidden');document.getElementById('results-screen').classList.add('hidden');document.getElementById('game-screen').classList.remove('hidden');renderQuestion();}
+function renderProgressDots(){const el=document.getElementById('progress-dots');el.innerHTML='';gameQuestions.forEach((q,i)=>{const d=document.createElement('div');d.className='pdot'+(i===currentIdx?' current':i<currentIdx?(q._result==='correct'?' correct':' wrong'):'');el.appendChild(d);});}
+function updateHeader(){document.getElementById('gems-display').textContent=gems;document.getElementById('streak-display').textContent=streak;document.getElementById('lives-display').textContent=lives;renderProgressDots();}
+function setAvatar(mood){document.getElementById('avatar-mood').textContent={neutral:'🚀',happy:'🎉',excited:'🌟',sad:'😔',thinking:'🤔'}[mood]||'🚀';}
+const BADGE_MAP={tabuada:['✖ Tabuada','badge-tabuada'],vistas:['👁 Vistas 3D','badge-vistas'],sequencia:['🔢 Sequência','badge-sequencia'],fracao:['🍕 Fração','badge-fracao'],geometria:['📐 Geometria','badge-geometria'],operacao:['🔍 Operação ?','badge-operacao']};
+function renderQuestion(){answered=false;const q=gameQuestions[currentIdx];currentQ=q;document.getElementById('feedback-area').innerHTML='';updateHeader();const[label,cls]=BADGE_MAP[q.type]||['—',''];const badge=document.getElementById('q-badge');badge.textContent=label;badge.className='q-type-badge '+cls;document.getElementById('q-text').textContent=q.text;document.getElementById('q-visual').innerHTML=q.visual();const grid=document.getElementById('q-options');grid.innerHTML='';const letters=['A','B','C','D'];const isVistaMatrix=q.type==='vistas'&&q.renderOpt&&typeof q.opts[0]==='object'&&!q.opts[0].grid;const isVistaStruct=q.type==='vistas'&&q.renderOpt&&q.opts[0]&&q.opts[0].grid;if(isVistaMatrix){grid.style.gridTemplateColumns='1fr 1fr';q.opts.forEach((matrix,i)=>{const btn=document.createElement('button');btn.className='opt-btn';btn.style.cssText='flex-direction:column;padding:8px;gap:4px;';btn.innerHTML='<span class="opt-letter">'+letters[i]+'</span><div class="opt-svg-wrap">'+q.renderOpt(matrix)+'</div>';btn.onclick=()=>checkAnswer(i,btn,q);grid.appendChild(btn);});}else if(isVistaStruct){grid.style.gridTemplateColumns='1fr 1fr';q.opts.forEach((s,i)=>{const btn=document.createElement('button');btn.className='opt-btn';btn.style.cssText='flex-direction:column;padding:8px;gap:4px;';btn.innerHTML='<span class="opt-letter">'+letters[i]+'</span><div class="opt-svg-wrap">'+q.renderOpt(s)+'</div>';btn.onclick=()=>checkAnswer(i,btn,q);grid.appendChild(btn);});}else{grid.style.gridTemplateColumns='1fr 1fr';const opts=q.builtOpts||q.opts;opts.forEach((val,i)=>{const btn=document.createElement('button');btn.className='opt-btn';btn.innerHTML='<span class="opt-letter">'+letters[i]+'</span> '+val;btn.onclick=()=>checkAnswer(i,btn,q);grid.appendChild(btn);});}setAvatar('thinking');}
+function speakQuestion(){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(currentQ.text);u.lang='pt-BR';u.rate=0.9;window.speechSynthesis.speak(u);}
+function checkAnswer(idx,btn,q){if(answered)return;answered=true;const correct=idx===q.answerIdx;q._result=correct?'correct':'wrong';const btns=document.querySelectorAll('#q-options .opt-btn');btns.forEach(b=>b.disabled=true);btns[q.answerIdx].classList.add('correct-ans');if(catStats[q.type])catStats[q.type].t++;if(correct){btn.classList.add('correct-ans');streak++;if(streak>maxStreak)maxStreak=streak;correctCount++;if(catStats[q.type])catStats[q.type].c++;let earned=5;if(streak>=5)earned=15;else if(streak>=3)earned=10;if(Math.random()<.25){earned+=5;showToast('✨ Bônus surpresa! +5 💎');}gems+=earned;setAvatar(streak>=3?'excited':'happy');spawnParticles(['💎','⭐','✨','🎉']);document.getElementById('feedback-area').innerHTML='<div class="feedback-box correct"><div class="feedback-title">✅ Correto! +'+earned+' 💎'+(streak>=3?' 🔥 Sequência ×'+streak:'')+'</div><div class="feedback-text">'+q.exp+'</div><button class="btn-next" onclick="nextQuestion()">Próxima →</button></div>';}else{btn.classList.add('wrong-ans');streak=0;lives--;wrongCount++;wrongList.push(q.text);setAvatar('sad');updateHeader();document.getElementById('feedback-area').innerHTML='<div class="feedback-box wrong"><div class="feedback-title">❌ Quase! Continue tentando!</div><div class="feedback-text">'+q.exp+'</div><button class="btn-next" onclick="nextQuestion()">Continuar →</button></div>';}}
+function nextQuestion(){currentIdx++;if(currentIdx>=gameQuestions.length||lives<=0)showResults();else renderQuestion();}
+function showResults(){document.getElementById('game-screen').classList.add('hidden');document.getElementById('results-screen').classList.remove('hidden');document.getElementById('res-gems').textContent=gems+' 💎';document.getElementById('res-correct').textContent=correctCount;document.getElementById('res-wrong').textContent=wrongCount;document.getElementById('res-streak').textContent=maxStreak;const pct=correctCount/(correctCount+wrongCount||1);const rank=[[1,'🌟 Astronauta'],[.8,'🚀 Piloto'],[.6,'🌙 Cadete'],[.4,'⭐ Recruta'],[0,'🌍 Aprendiz']].find(([t])=>pct>=t);document.getElementById('res-rank').textContent=rank?rank[1]:'⭐';const catInfo={tabuada:['✖ Tabuada','#f97316'],vistas:['👁 Vistas','#06b6d4'],sequencia:['🔢 Sequência','#a855f7'],fracao:['🍕 Fração','#22c55e'],geometria:['📐 Geometria','#ef4444'],operacao:['🔍 Operação','#eab308']};let breakdown='<div class="cat-breakdown"><h3>Desempenho por categoria</h3>';for(const[k,{c,t}]of Object.entries(catStats)){if(!t)continue;const[lbl,color]=catInfo[k],p=t?Math.round(c/t*100):0;breakdown+='<div class="cat-row"><span style="font-size:.78rem;min-width:90px;color:#94a3b8">'+lbl+'</span><div class="cat-bar-wrap"><div class="cat-bar" style="width:'+p+'%;background:'+color+'"></div></div><span class="cat-pct" style="color:'+color+'">'+p+'%</span></div>';}breakdown+='</div>';document.getElementById('cat-breakdown').outerHTML=breakdown;if(wrongList.length){document.getElementById('learnings-box').classList.remove('hidden');document.getElementById('learnings-list').innerHTML=wrongList.map(t=>'<div class="learning-item">'+t+'</div>').join('');}spawnParticles(['🎉','💎','🚀','⭐','✨'],28);}
+function spawnParticles(emojis,count){count=count||12;const c=document.getElementById('particles');for(let i=0;i<count;i++){setTimeout(()=>{const p=document.createElement('div');p.className='particle';p.textContent=emojis[Math.floor(Math.random()*emojis.length)];const x=Math.random()*window.innerWidth,dy=-(80+Math.random()*200),dx=(Math.random()-.5)*160;p.style.cssText='left:'+x+'px;top:'+(window.innerHeight*.65)+'px;--dx:'+dx+'px;--dy:'+dy+'px';c.appendChild(p);setTimeout(()=>p.remove(),1300);},i*55);}}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2300);}
+</script>
+</body>
+</html>
