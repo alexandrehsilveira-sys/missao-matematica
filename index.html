@@ -1,9 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Missão Matemática / Math Mission 🚀</title>
+  <meta name="description" content="Math Mission: six types of math challenges inspired by Kangaroo competitions - times tables, 3D views, sequences, fractions, geometry, and missing operations. Free bilingual math game for kids.">
+  <meta name="keywords" content="math game, math mission, kids math, times tables game, math kangaroo, fractions game, geometry game, sequences game, math quiz">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://alexandrehsilveira-sys.github.io/missao-matematica/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Math Mission - Missao Matematica">
+  <meta property="og:description" content="Six types of math challenges inspired by Kangaroo competitions: times tables, 3D views, sequences, fractions, geometry, and missing operations.">
+  <meta property="og:url" content="https://alexandrehsilveira-sys.github.io/missao-matematica/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Math Mission - Missao Matematica">
+  <meta name="twitter:description" content="Six types of math challenges inspired by Kangaroo competitions.">
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Math Mission","alternateName":"Missao Matematica","description":"Six types of math challenges inspired by Kangaroo competitions: times tables, 3D views, sequences, fractions, geometry, and missing operations.","applicationCategory":"EducationalApplication","operatingSystem":"Any (Web Browser)","url":"https://alexandrehsilveira-sys.github.io/missao-matematica/","inLanguage":["en","pt-BR"],"isAccessibleForFree":true}
+  </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WML9RBYP99"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WML9RBYP99');</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -103,8 +117,8 @@ h1{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#f97316,#06b
 <div id="particles"></div>
 <div id="toast"></div>
 <div class="lang-toggle">
-  <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')">🇧🇷 PT</button>
-  <button class="lang-btn" id="btn-en" onclick="setLang('en')">🇺🇸 EN</button>
+  <button class="lang-btn" id="btn-pt" onclick="setLang('pt')">🇧🇷 PT</button>
+  <button class="lang-btn active" id="btn-en" onclick="setLang('en')">🇺🇸 EN</button>
 </div>
 <div class="screen" id="menu-screen">
   <div class="logo">🚀</div>
@@ -159,7 +173,7 @@ h1{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#f97316,#06b
 <script>
 (function(){const c=document.getElementById('stars');for(let i=0;i<130;i++){const s=document.createElement('div'),sz=Math.random()*3+1;s.className='star';s.style.cssText='width:'+sz+'px;height:'+sz+'px;background:#fff;top:'+(Math.random()*100)+'%;left:'+(Math.random()*100)+'%;--d:'+(1+Math.random()*3).toFixed(1)+'s;animation-delay:'+(Math.random()*4).toFixed(1)+'s;opacity:.15';c.appendChild(s);}})();
 const TR={pt:{title:'Missão Matemática',subtitle:'Seis tipos de desafios matemáticos inspirados nas competições Canguru!',chipTab:'✖ Tabuada',chipVis:'👁 Vistas 3D',chipSeq:'🔢 Sequências',chipFra:'🍕 Frações',chipGeo:'📐 Geometria',chipOps:'🔍 Operação ?',modeTurboLabel:'Turbo',modeTurboDesc:'8 questões',modeNormalLabel:'Normal',modeNormalDesc:'15 questões',modeFullLabel:'Completo',modeFullDesc:'24 questões',btnStart:'Iniciar Missão 🚀',btnSpeak:'🔊 Ouvir',resTitle:'Missão Concluída!',resCorrect:'Acertos',resWrong:'Erros',resStreak:'Maior Sequência',resRank:'Patente',learningsTitle:'💡 Para revisar:',btnAgain:'Nova Missão 🚀',feedCorrect:'✅ Correto!',feedWrong:'❌ Quase! Continue tentando!',feedNext:'Próxima →',feedContinue:'Continuar →',bonusToast:'✨ Bônus surpresa! +5 💎',streakLabel:'🔥 Sequência ×',catPerf:'Desempenho por categoria',ranks:[[1,'🌟 Astronauta'],[.8,'🚀 Piloto'],[.6,'🌙 Cadete'],[.4,'⭐ Recruta'],[0,'🌍 Aprendiz']],badgeTab:'✖ Tabuada',badgeVis:'👁 Vistas 3D',badgeSeq:'🔢 Sequência',badgeFra:'🍕 Fração',badgeGeo:'📐 Geometria',badgeOps:'🔍 Operação ?',catLabels:{tabuada:'✖ Tabuada',vistas:'👁 Vistas',sequencia:'🔢 Sequência',fracao:'🍕 Fração',geometria:'📐 Geometria',operacao:'🔍 Operação'},avatar:{neutral:'🚀',happy:'🎉',excited:'🌟',sad:'😔',thinking:'🤔'}},en:{title:'Math Mission',subtitle:'Six types of math challenges inspired by Kangaroo competitions!',chipTab:'✖ Times Tables',chipVis:'👁 3D Views',chipSeq:'🔢 Sequences',chipFra:'🍕 Fractions',chipGeo:'📐 Geometry',chipOps:'🔍 Missing ?',modeTurboLabel:'Turbo',modeTurboDesc:'8 questions',modeNormalLabel:'Normal',modeNormalDesc:'15 questions',modeFullLabel:'Full',modeFullDesc:'24 questions',btnStart:'Start Mission 🚀',btnSpeak:'🔊 Listen',resTitle:'Mission Complete!',resCorrect:'Correct',resWrong:'Errors',resStreak:'Best Streak',resRank:'Rank',learningsTitle:'💡 Review these:',btnAgain:'New Mission 🚀',feedCorrect:'✅ Correct!',feedWrong:'❌ Almost! Keep going!',feedNext:'Next →',feedContinue:'Continue →',bonusToast:'✨ Surprise bonus! +5 💎',streakLabel:'🔥 Streak ×',catPerf:'Performance by category',ranks:[[1,'🌟 Astronaut'],[.8,'🚀 Pilot'],[.6,'🌙 Cadet'],[.4,'⭐ Recruit'],[0,'🌍 Beginner']],badgeTab:'✖ Times Tables',badgeVis:'👁 3D Views',badgeSeq:'🔢 Sequence',badgeFra:'🍕 Fraction',badgeGeo:'📐 Geometry',badgeOps:'🔍 Missing ?',catLabels:{tabuada:'✖ Times Tables',vistas:'👁 Views',sequencia:'🔢 Sequences',fracao:'🍕 Fractions',geometria:'📐 Geometry',operacao:'🔍 Missing ?'},avatar:{neutral:'🚀',happy:'🎉',excited:'🌟',sad:'😔',thinking:'🤔'}}};
-let lang='pt';
+let lang='en';applyTranslations();
 function t(k){return TR[lang][k]||TR.pt[k];}
 function setLang(l){lang=l;document.getElementById('btn-pt').classList.toggle('active',l==='pt');document.getElementById('btn-en').classList.toggle('active',l==='en');applyTranslations();if(currentQ)renderQuestion();}
 function applyTranslations(){document.getElementById('menu-title').textContent=t('title');document.getElementById('menu-subtitle').textContent=t('subtitle');document.getElementById('chip-tab').textContent=t('chipTab');document.getElementById('chip-vis').textContent=t('chipVis');document.getElementById('chip-seq').textContent=t('chipSeq');document.getElementById('chip-fra').textContent=t('chipFra');document.getElementById('chip-geo').textContent=t('chipGeo');document.getElementById('chip-ops').textContent=t('chipOps');document.getElementById('mode-turbo-label').textContent=t('modeTurboLabel');document.getElementById('mode-turbo-desc').textContent=t('modeTurboDesc');document.getElementById('mode-normal-label').textContent=t('modeNormalLabel');document.getElementById('mode-normal-desc').textContent=t('modeNormalDesc');document.getElementById('mode-full-label').textContent=t('modeFullLabel');document.getElementById('mode-full-desc').textContent=t('modeFullDesc');document.getElementById('btn-start').textContent=t('btnStart');document.getElementById('btn-speak-label').textContent=t('btnSpeak');document.getElementById('res-title').textContent=t('resTitle');document.getElementById('res-correct-label').textContent=t('resCorrect');document.getElementById('res-wrong-label').textContent=t('resWrong');document.getElementById('res-streak-label').textContent=t('resStreak');document.getElementById('res-rank-label').textContent=t('resRank');document.getElementById('learnings-title').textContent=t('learningsTitle');document.getElementById('btn-again').textContent=t('btnAgain');}
